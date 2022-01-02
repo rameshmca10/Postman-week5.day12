@@ -1,0 +1,365 @@
+{
+	"info": {
+		"_postman_id": "74da30f4-351e-4d25-afc3-daf1d0e9fc91",
+		"name": "Salesforce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetoAuth2Token",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "clientSecret",
+							"value": "DD6DE786BB5176B2D412AABE5334C80DDA5030D4277B55A20F267265C5C4B10D",
+							"type": "string"
+						},
+						{
+							"key": "clientId",
+							"value": "3MVG9pRzvMkjMb6mPD9GcxX00nlcSk483JYKv8ZuLZvmIXix9REbPb3RHFcxbMTSv238VR48V4hMVG2eUOo6u",
+							"type": "string"
+						},
+						{
+							"key": "client_authentication",
+							"value": "body",
+							"type": "string"
+						},
+						{
+							"key": "scope",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "accessTokenUrl",
+							"value": "https://login.salesforce.com/services/oauth2/token",
+							"type": "string"
+						},
+						{
+							"key": "authUrl",
+							"value": "https://login.salesforce.com/services/oauth2/authorize",
+							"type": "string"
+						},
+						{
+							"key": "state",
+							"value": "user",
+							"type": "string"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "https://www.getpostman.com/oauth2/callback",
+							"type": "string"
+						},
+						{
+							"key": "tokenName",
+							"value": "testToken",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sample-9d-dev-ed.my.salesforce.com/",
+					"protocol": "https",
+					"host": [
+						"sample-9d-dev-ed",
+						"my",
+						"salesforce",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetVersion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostname}}/services/data/",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"services",
+						"data",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetResources",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostname}}/services/data/v20.0/",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"services",
+						"data",
+						"v20.0",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSObjects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostname}}/services/data/v20.0/sobjects/",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"services",
+						"data",
+						"v20.0",
+						"sobjects",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDescribe",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostname}}/{{salesforce_contact}}/describe",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"{{salesforce_contact}}",
+						"describe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SOQLQueryContact",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostname}}/services/data/v20.0/query?q=SELECT+id+from+Contact",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"services",
+						"data",
+						"v20.0",
+						"query"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "SELECT+id+from+Contact"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SOQLQueryAccount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostname}}/services/data/v20.0/query?q=SELECT+id+from+Account",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"services",
+						"data",
+						"v20.0",
+						"query"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "SELECT+id+from+Account"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateContact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"var response_json = pm.response.json();\r",
+							"pm.environment.set(\"contact_id\",response_json.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FirstName\": \"ramss\",\r\n    \"LastName\": \"testsss\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hostname}}/{{salesforce_contact}}",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"{{salesforce_contact}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateContact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FirstName\": \"rams\",\r\n    \"LastName\": \"tests\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hostname}}/{{salesforce_contact}}/{{contact_id}}",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"{{salesforce_contact}}",
+						"{{contact_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteContact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{hostname}}/{{salesforce_contact}}/{{contact_id}}",
+					"host": [
+						"{{hostname}}"
+					],
+					"path": [
+						"{{salesforce_contact}}",
+						"{{contact_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "00D5j000004mDIU!ARoAQL.kTMsTQ5aug7QwvVJP__hwWGHvqec8xRCnFEx116x78Ztc_XJ34pHAW0p1sSSDNkh1Ve_z8Gxwx9T_y_cGCsAgX6Wr",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "hostname",
+			"value": "https://sample-9d-dev-ed.my.salesforce.com/",
+			"type": "string"
+		}
+	]
+}
